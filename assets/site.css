@@ -69,8 +69,10 @@ a{color:inherit}
   position:absolute;height:150svh;aspect-ratio:1333/2000;top:-41.5svh;right:0;
   transform-origin:66% 81%;
   transform:translate3d(var(--px,0px),calc(var(--py,0px) - var(--sy,0px)),0) scale(var(--sc,1));
-  -webkit-mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%));
-  mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%));
+  -webkit-mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%)),linear-gradient(90deg,transparent 0,#000 26%);
+  -webkit-mask-composite:source-in;
+  mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%)),linear-gradient(90deg,transparent 0,#000 26%);
+  mask-composite:intersect;
   animation:reveal 3.6s var(--ease) .4s both;
 }
 @keyframes reveal{from{--r:0%}to{--r:150%}}
@@ -103,6 +105,8 @@ a{color:inherit}
   opacity:calc(1 - var(--p,0) * 1.5);transform:translateY(calc(var(--p,0) * -30px));
 }
 .logos{display:flex;gap:12px;margin-bottom:clamp(22px,5svh,56px);flex-wrap:wrap}
+.logo-min{height:64px;width:auto;display:block}
+.ftr .logo-min{height:84px}
 .logo-ph{padding:10px 14px;border:1px dashed var(--glass-edge);border-radius:10px;color:var(--soft)}
 .hero h1{font-weight:400;line-height:1.02;letter-spacing:.01em;font-size:clamp(30px,3.7vw,62px);letter-spacing:-.01em;text-wrap:balance;
   animation:rise 1.4s var(--ease) 1.2s both}
@@ -126,7 +130,7 @@ a{color:inherit}
 .layers .t{font-size:.82rem}
 .cue{position:absolute;z-index:3;left:50%;bottom:18px;transform:translateX(-50%);color:var(--soft);display:none;text-align:center}
 @media (max-aspect-ratio:5/4){
-  .kv-box{height:100svh;top:0;right:auto;left:calc(50vw - 43.3svh)}
+  .kv-box{height:100svh;top:0;right:auto;left:calc(50vw - 43.3svh);-webkit-mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%));mask-image:radial-gradient(circle at 66% 81%,#000 var(--r),transparent calc(var(--r) + 30%))}
   .kv-shade{background:linear-gradient(180deg,var(--bg) 0%,rgba(4,7,6,.7) 28%,transparent 50%),linear-gradient(0deg,var(--bg),transparent 14%)}
   .hero-copy{max-width:none;inset-inline-end:var(--pad);top:clamp(84px,13svh,120px)}
   .hero h1{font-size:clamp(26px,7.4vw,46px)}

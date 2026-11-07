@@ -98,7 +98,7 @@ def footer():
       <div class="ftr-name">{T(SITE_EN)} — {T(EDITION_EN)}</div>
       <div class="ftr-date mono">{T("19–22 November 2026 · Algiers")}</div>
     </div>
-    <span class="logo-ph mono">Logo M. Culture</span>
+    <img class="logo-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="69" height="84">
   </div>
   <div class="ftr-cols">
     <div><h4 class="mono">{T("Explore")}</h4><ul>{explore}</ul></div>
@@ -176,7 +176,7 @@ def index():
   </div>
 
   <div class="hero-copy">
-    <div class="logos mono"><span class="logo-ph">Logo M. Culture</span></div>
+    <div class="logos mono"><img class="logo-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="52" height="64"></div>
     <p class="edition mono">{T(EDITION_EN)}</p>
     <h1 id="hero-title">{T(SITE_EN)}</h1>
     <p class="when">{T(DATES_EN)}</p>
