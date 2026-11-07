@@ -14,8 +14,11 @@ python3 -m http.server  # aperçu sur http://localhost:8000
 Le hero utilise `assets/kv.webp` (placeholder). Pour passer à la vidéo animée, déposer `assets/kv.mp4`
 au même cadrage vertical 2:3 que l'image : elle prend automatiquement le relais (fondu), sans autre changement.
 
+## Identité visuelle
+Appliquée d'après `VISUAL_IDENTITY_FAN` : fond Noir #050403, texte Chaux #EFEBE3, accents Sable #D9A45F, Palmier #2E6A4B, Sauge #93B49C, Brique #B5382B ; Syne (titres et textes, sans italique) et Geist Mono (dates, lieux, libellés, capitales, interlettrage +18 %). Le logo (arche + ruban) est extrait du PDF en vectoriel puis détouré : `assets/logo-mark.webp` et `assets/logo-mark-small.webp` (dessin « petite taille », pour le header et le favicon). Le dégradé du ruban est réservé au logo et aux filets.
+
 ## À remplacer
-- Logos FNAN et Ministère de la Culture (pastilles pointillées « Logo … »).
+- Logo du Ministère de la Culture (pastille pointillée « Logo M. Culture »).
 - Liens Instagram / Facebook / Contact / Politique de confidentialité / Mentions légales (`#` pour l'instant).
 - Profils artistes et intervenants (cartes « Profile coming soon »).
 
