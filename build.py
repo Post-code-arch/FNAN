@@ -8,7 +8,8 @@ from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-SITE_EN = "National Festival of Digital Art"
+SITE_EN = "National Cultural Festival of Fine and Visual Arts"
+EDITION_EN = "4th Digital Edition"
 DATES_EN = "19 — 22 November 2026"
 
 
@@ -93,7 +94,7 @@ def footer():
   <div class="ftr-top">
     <div>
       <div class="wordmark">FNAN</div>
-      <div class="ftr-name">{T(SITE_EN)}</div>
+      <div class="ftr-name">{T(SITE_EN)} — {T(EDITION_EN)}</div>
       <div class="ftr-date mono">{T("19–22 November 2026 · Algiers")}</div>
     </div>
     <span class="logo-ph mono">Logo M. Culture</span>
@@ -156,7 +157,7 @@ def index():
     )
     return (
         head(f"FNAN — {SITE_EN} · 19–22 November 2026, Algiers",
-             "FNAN, National Festival of Digital Art. 19–22 November 2026, Villa Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
+             "FNAN, National Cultural Festival of Fine and Visual Arts, 4th Digital Edition. 19–22 November 2026, Villa Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
         + header()
         + f"""<main>
 <section class="hero" id="hero" aria-labelledby="hero-title">
@@ -175,6 +176,7 @@ def index():
 
   <div class="hero-copy">
     <div class="logos mono"><span class="logo-ph">Logo FNAN</span><span class="logo-ph">Logo M. Culture</span></div>
+    <p class="edition mono">{T(EDITION_EN)}</p>
     <h1 id="hero-title">{T(SITE_EN)}</h1>
     <p class="when">{T(DATES_EN)}</p>
     <p class="where mono">{T("Villa Abd-el-Tif")}<br>{T("National Museum of Fine Arts, Algiers")}</p>

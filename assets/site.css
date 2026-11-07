@@ -103,8 +103,9 @@ a{color:inherit}
 }
 .logos{display:flex;gap:12px;margin-bottom:clamp(22px,5svh,56px);flex-wrap:wrap}
 .logo-ph{padding:10px 14px;border:1px dashed var(--glass-edge);border-radius:10px;color:var(--soft)}
-.hero h1{font-weight:200;line-height:1.02;letter-spacing:.01em;font-size:clamp(38px,5.6vw,92px);text-wrap:balance;
+.hero h1{font-weight:200;line-height:1.02;letter-spacing:.01em;font-size:clamp(34px,4.6vw,78px);text-wrap:balance;
   animation:rise 1.4s var(--ease) 1.2s both}
+.hero .edition{color:var(--green);margin-bottom:16px;animation:rise 1.4s var(--ease) 1s both}
 .hero .when{margin-top:clamp(18px,3svh,34px);font-size:clamp(1.05rem,1.8vw,1.5rem);font-weight:300;animation:rise 1.4s var(--ease) 1.5s both}
 .hero .where{margin-top:10px;color:var(--soft);animation:rise 1.4s var(--ease) 1.7s both}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -127,7 +128,7 @@ a{color:inherit}
   .kv-box{height:100svh;top:0;right:auto;left:calc(50vw - 43.3svh)}
   .kv-shade{background:linear-gradient(180deg,var(--bg) 0%,rgba(4,7,6,.7) 28%,transparent 50%),linear-gradient(0deg,var(--bg),transparent 14%)}
   .hero-copy{max-width:none;inset-inline-end:var(--pad);top:clamp(84px,13svh,120px)}
-  .hero h1{font-size:clamp(34px,10vw,64px)}
+  .hero h1{font-size:clamp(30px,8.6vw,56px)}
   .layers{display:none}
   .cue{display:block}
 }

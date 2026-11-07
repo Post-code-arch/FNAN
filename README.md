@@ -1,4 +1,4 @@
-# FNAN — National Festival of Digital Art
+# FNAN — National Cultural Festival of Fine and Visual Arts (4th Digital Edition)
 
 Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Speakers, Visit. Anglais uniquement.
 
