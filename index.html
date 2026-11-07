@@ -1,297 +1,84 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FNAN — Festival national des arts visuels et plastiques, édition numérique</title>
-<meta name="description" content="FNAN, Festival national des arts visuels et plastiques : une édition numérique pour traverser l'art à travers l'écran.">
-<meta name="theme-color" content="#04101a">
+<title>FNAN — National Festival of Digital Art · 19–22 November 2026, Algiers</title>
+<meta name="description" content="FNAN, National Festival of Digital Art. 19–22 November 2026, Villa Abd-el-Tif and the National Museum of Fine Arts, Algiers.">
+<meta name="theme-color" content="#040706">
+<meta property="og:title" content="FNAN — National Festival of Digital Art · 19–22 November 2026, Algiers">
+<meta property="og:description" content="FNAN, National Festival of Digital Art. 19–22 November 2026, Villa Abd-el-Tif and the National Museum of Fine Arts, Algiers.">
+<meta property="og:image" content="assets/kv.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#04101a;
-  --ink:#eaf7ff;
-  --ink-soft:rgba(234,247,255,.72);
-  --cyan:#5fe3ff;
-  --violet:#9a7bff;
-  --amber:#ffc98a;
-  --rose:#ff8fc2;
-  --glass:rgba(190,235,255,.11);
-  --glass-edge:rgba(255,255,255,.55);
-  --w:min(78vw,58vh);
-  --h:min(86vh,calc(var(--w)*1.55));
-  --b:clamp(14px,2.6vw,30px);
-  --gap:700px;
-}
-*{box-sizing:border-box;margin:0}
-html{background:var(--bg)}
-body{
-  background:var(--bg);color:var(--ink);
-  font-family:'Outfit',system-ui,sans-serif;font-weight:400;
-  -webkit-font-smoothing:antialiased;
-}
-.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
-
-/* Lumière générative du fond (canvas) */
-#light{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
-
-/* Barre haute */
-.top{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;
-  padding:20px clamp(16px,4vw,40px);pointer-events:none;color:var(--ink-soft)}
-.top b{font-weight:500;color:var(--ink)}
-
-/* ---------- Mode plat (par défaut / mouvement réduit) ---------- */
-.track{position:relative;z-index:1}
-.stage{position:relative}
-.world{display:flex;flex-direction:column;align-items:center;gap:28px;padding:96px 16px 64px}
-.layer{width:var(--w);position:relative}
-.layer .arch{position:absolute;inset:0}
-.layer .content{position:relative;padding:calc(var(--b) + 18%) calc(var(--b) + 6%) calc(var(--b) + 28px)}
-.layer.deep{display:none}
-.figure,.hint,.count{display:none}
-
-/* ---------- Arches de verre ---------- */
-.arch{
-  border:var(--b) solid var(--glass);border-bottom:0;
-  border-radius:999px 999px 0 0;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.30),
-    inset 0 0 0 1px var(--glass-edge),
-    inset 0 28px 60px rgba(160,230,255,.12),
-    0 0 70px rgba(95,227,255,.20);
-  pointer-events:none;
-}
-.arch::after{ /* reflet spéculaire */
-  content:"";position:absolute;inset:0;border-radius:999px 999px 0 0;
-  background:linear-gradient(105deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 22%,rgba(255,255,255,0) 78%,rgba(255,200,140,.16) 100%);
-  mix-blend-mode:screen;
-}
-
-/* ---------- Contenus ---------- */
-.kicker{color:var(--cyan);margin-bottom:18px}
-h1{font-weight:200;line-height:.9;letter-spacing:.02em;
-  font-size:clamp(56px,calc(var(--w)*.27),190px)}
-.full{margin-top:18px;color:var(--ink-soft);max-width:30ch}
-.tagline{font-weight:200;line-height:1.08;font-size:clamp(30px,calc(var(--w)*.115),68px)}
-.tagline em{font-style:normal;color:var(--cyan)}
-.desc{font-weight:300;line-height:1.55;color:var(--ink-soft);font-size:clamp(15px,calc(var(--w)*.04),19px)}
-.content{text-align:center;display:flex;flex-direction:column;align-items:center}
-
-.door{ /* dernier seuil : verre liquide */
-  margin:0 calc(var(--b)*.4);
-  padding:clamp(18px,3vw,30px) clamp(16px,2.4vw,26px);
-  border-radius:calc(var(--w)/2) calc(var(--w)/2) 24px 24px;
-  background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(4,16,26,.62) 60%,rgba(154,123,255,.14));
-  -webkit-backdrop-filter:blur(18px) saturate(1.7);backdrop-filter:blur(18px) saturate(1.7);
-  border:1px solid rgba(255,255,255,.45);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -20px 40px rgba(95,227,255,.10),0 20px 60px rgba(0,0,0,.25);
-}
-.door p{margin-bottom:20px;color:var(--ink)}
-.cta{
-  display:inline-block;padding:13px 26px;border-radius:999px;text-decoration:none;
-  color:#04101a;background:var(--ink);font-weight:400;font-size:.95rem;
-  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
-}
-.cta:hover{transform:scale(1.06)}
-.social{list-style:none;padding:0;margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.social a{
-  display:block;padding:9px 14px;border-radius:999px;text-decoration:none;color:var(--ink);
-  border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
-  transition:background .3s,transform .5s cubic-bezier(.34,1.56,.64,1);
-}
-.social a:hover,.social a:focus-visible{background:rgba(255,255,255,.22);transform:translateY(-2px)}
-a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-
-/* ---------- Mode 3D (scroll = traversée du couloir) ---------- */
-.is-3d .track{height:560vh}
-.is-3d .stage{position:sticky;top:0;height:100vh;overflow:hidden;perspective:900px;perspective-origin:50% 46%}
-.is-3d .world{position:absolute;inset:0;display:block;padding:0;transform-style:preserve-3d;will-change:transform}
-.is-3d .layer{
-  position:absolute;left:50%;bottom:9vh;height:var(--h);
-  transform:translate3d(-50%,0,calc(var(--i) * var(--gap) * -1));
-  opacity:var(--f,1);
-}
-.is-3d .layer.deep{display:block}
-.is-3d .layer .content{
-  position:absolute;inset:0;padding:calc(var(--b) + 16%) calc(var(--b) + 5%) calc(var(--b) + 6%);
-  justify-content:center;opacity:var(--t,1);
-}
-.is-3d .figure{display:block;position:fixed;left:50%;bottom:calc(9vh + 1.2vh);z-index:5;width:22px;
-  transform:translateX(-50%);color:#fff;opacity:.9;filter:drop-shadow(0 0 8px rgba(255,201,138,.7))}
-.is-3d .hint{display:flex;position:fixed;left:0;right:0;bottom:3.2vh;z-index:6;flex-direction:column;
-  align-items:center;gap:8px;color:var(--ink-soft);pointer-events:none;transition:opacity .5s}
-.is-3d .hint i{display:block;width:1px;height:26px;background:var(--ink-soft);animation:drip 2.2s ease-in-out infinite;transform-origin:top}
-.is-3d .count{display:block;position:fixed;right:clamp(16px,4vw,40px);top:50%;z-index:20;color:var(--ink-soft);
-  transform:translateY(-50%);writing-mode:vertical-rl}
-@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
-@media (prefers-reduced-motion:reduce){.hint i{animation:none}}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
-<canvas id="light" aria-hidden="true"></canvas>
-
-<header class="top mono">
-  <b>FNAN</b><span>Édition numérique</span>
+<body class="">
+<header class="hdr" id="hdr">
+  <a class="brand" href="index.html" aria-label="FNAN — home">
+    <svg viewBox="0 0 20 26" aria-hidden="true"><path d="M2 25V10a8 8 0 0 1 16 0v15"/><path d="M6.5 25V11a3.5 3.5 0 0 1 7 0v14" opacity=".6"/></svg>
+    <span>FNAN</span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="about.html">About the Festival</a><a href="programme.html">Programme</a><a href="artists.html">Artists</a><a href="speakers.html">Speakers</a>
+    <a class="cta mono" href="visit.html">Visit the Festival</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
 </header>
-
-<main class="track" id="track">
-  <div class="stage" id="stage">
-    <div class="world" id="world">
-
-      <!-- Arche 0 : nom du festival -->
-      <section class="layer" style="--i:0" data-i="0" aria-label="Le festival">
-        <div class="arch"></div>
-        <div class="content">
-          <p class="kicker mono">Édition numérique</p>
-          <h1>FNAN</h1>
-          <p class="full mono">Festival national des arts visuels et plastiques</p>
-        </div>
-      </section>
-
-      <!-- Arche 1 : tagline (texte provisoire) -->
-      <section class="layer" style="--i:1" data-i="1" aria-label="Signature">
-        <div class="arch"></div>
-        <div class="content">
-          <p class="tagline">Regarder, c'est déjà <em>traverser</em>.</p>
-        </div>
-      </section>
-
-      <!-- Arche 2 : description (texte provisoire) -->
-      <section class="layer" style="--i:2" data-i="2" aria-label="Description">
-        <div class="arch"></div>
-        <div class="content">
-          <p class="kicker mono">Le festival</p>
-          <p class="desc">Peinture, sculpture, photographie, image en mouvement et création générative. Pour cette édition, tout le festival se vit en ligne : des salles virtuelles, des œuvres qui réagissent à vous, des artistes à portée de regard.</p>
-        </div>
-      </section>
-
-      <!-- Arche 3 : seuil de verre, réseaux sociaux -->
-      <section class="layer" style="--i:3" data-i="3" aria-label="Rejoindre le festival">
-        <div class="arch"></div>
-        <div class="content">
-          <div class="door">
-            <p class="kicker mono" style="margin-bottom:14px">Entrer</p>
-            <a class="cta" href="#">Découvrir le programme</a>
-            <ul class="social mono">
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Facebook</a></li>
-              <li><a href="#">YouTube</a></li>
-              <li><a href="#">TikTok</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Arches de profondeur (décor du couloir) -->
-      <div class="layer deep" style="--i:4" aria-hidden="true"><div class="arch"></div></div>
-      <div class="layer deep" style="--i:5" aria-hidden="true"><div class="arch"></div></div>
-      <div class="layer deep" style="--i:6" aria-hidden="true"><div class="arch"></div></div>
+<main>
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="kv" aria-hidden="true">
+    <div class="kv-box">
+      <img class="kv-img" src="assets/kv.webp" alt="" width="1333" height="2000" fetchpriority="high">
+      <!-- Vidéo du KV : déposer assets/kv.mp4 (même cadrage vertical 2:3) et elle remplace l'image -->
+      <video class="kv-video" id="kv-video" muted loop playsinline autoplay preload="auto" poster="assets/kv.webp">
+        <source src="assets/kv.mp4" type="video/mp4">
+      </video>
+      <div class="kv-light g"></div><div class="kv-light r"></div>
+      <div class="kv-door"></div><div class="kv-sweep"></div>
     </div>
+    <div class="kv-shade"></div><div class="kv-dark"></div><div class="kv-fade"></div>
   </div>
+
+  <div class="hero-copy">
+    <div class="logos mono"><span class="logo-ph">Logo FNAN</span><span class="logo-ph">Logo M. Culture</span></div>
+    <h1 id="hero-title">National Festival of Digital Art</h1>
+    <p class="when">19 — 22 November 2026</p>
+    <p class="where mono">Villa Abd-el-Tif<br>National Museum of Fine Arts, Algiers</p>
+  </div>
+
+  <nav class="layers" id="layers" aria-label="Navigate through the arch layers">
+    <svg class="layers-arch" viewBox="0 0 120 150" aria-hidden="true"><path class="a1" d="M8,148 V58.0 A52.0 52.0 0 0 1 112,58.0 V148"/><path class="a2" d="M21,148 V61.2 A39.0 39.0 0 0 1 99,61.2 V148"/><path class="a3" d="M34,148 V64.5 A26.0 26.0 0 0 1 86,64.5 V148"/><path class="a4" d="M47,148 V67.8 A13.0 13.0 0 0 1 73,67.8 V148"/><path class="a5" d="M60,148 V71.0 A0.0 0.0 0 0 1 60,71.0 V148"/></svg>
+    <ol><li><a href="about.html" data-layer="1"><span class="n mono">01</span><span class="t mono">About the Festival</span></a></li><li><a href="programme.html" data-layer="2"><span class="n mono">02</span><span class="t mono">Programme</span></a></li><li><a href="artists.html" data-layer="3"><span class="n mono">03</span><span class="t mono">Artists</span></a></li><li><a href="speakers.html" data-layer="4"><span class="n mono">04</span><span class="t mono">Speakers</span></a></li><li><a href="visit.html" data-layer="5"><span class="n mono">05</span><span class="t mono">Visit the Festival</span></a></li></ol>
+  </nav>
+  <div class="cue mono" aria-hidden="true">Scroll</div>
+</section>
+
+<section class="gates" aria-labelledby="gates-title">
+  <h2 id="gates-title" class="rv">Walk through the arches.</h2>
+  <a class="gate rv" href="about.html"><span class="n mono">01</span><span><span class="t">About the Festival</span><p class="d">A space where art meets new expressions.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="programme.html"><span class="n mono">02</span><span><span class="t">The Programme</span><p class="d">Four ways to explore, create and connect.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="artists.html"><span class="n mono">03</span><span><span class="t">The Artists</span><p class="d">The artists behind new imaginaries.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="speakers.html"><span class="n mono">04</span><span><span class="t">The Speakers</span><p class="d">The voices behind the ideas.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="visit.html"><span class="n mono">05</span><span><span class="t">Visit the Festival</span><p class="d">Experience the festival. Discover new perspectives.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a>
+</section>
 </main>
-
-<svg class="figure" viewBox="0 0 22 60" aria-hidden="true">
-  <circle cx="11" cy="6" r="4.2" fill="currentColor"/>
-  <path d="M11 11c-4 0-6 3-6.5 8L3 38l4 1-1 21h4l1-14 1 14h4l-1-21 4-1-1.5-19C17 14 15 11 11 11z" fill="currentColor"/>
-</svg>
-<div class="hint mono" id="hint"><span>Défiler</span><i></i></div>
-<div class="count mono" id="count">01 / 04</div>
-
-<script>
-(function(){
-  var root=document.documentElement;
-  var canvas=document.getElementById('light'),ctx=canvas.getContext('2d');
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var progress=0, px=0, py=0;
-
-  /* ---- Lumière générative : taches colorées additives ---- */
-  var blobs=[
-    {c:[95,227,255],r:.55,sx:.23,sy:.31,ax:.30,ay:.18,p:0},
-    {c:[154,123,255],r:.50,sx:.17,sy:.27,ax:.34,ay:.22,p:2},
-    {c:[255,143,194],r:.38,sx:.29,sy:.21,ax:.26,ay:.20,p:4},
-    {c:[255,201,138],r:.46,sx:.13,sy:.19,ax:.14,ay:.10,p:1}
-  ];
-  var W=0,H=0,SC=.5;
-  function resize(){
-    W=Math.max(1,Math.floor(innerWidth*SC));H=Math.max(1,Math.floor(innerHeight*SC));
-    canvas.width=W;canvas.height=H;
-  }
-  function draw(t){
-    var s=t/1000;
-    ctx.globalCompositeOperation='source-over';
-    ctx.fillStyle='#04101a';ctx.fillRect(0,0,W,H);
-    ctx.globalCompositeOperation='lighter';
-    var R=Math.max(W,H);
-    var cx=W*(.5+px*.03),cy=H*(.46+py*.03);
-    for(var i=0;i<blobs.length;i++){
-      var b=blobs[i];
-      var x=cx+Math.sin(s*b.sx+b.p)*b.ax*W;
-      var y=cy+Math.cos(s*b.sy+b.p)*b.ay*H;
-      var rad=b.r*R*(.55+progress*.35);
-      var a=.16+progress*.16;
-      var g=ctx.createRadialGradient(x,y,0,x,y,rad);
-      g.addColorStop(0,'rgba('+b.c+','+a+')');
-      g.addColorStop(1,'rgba('+b.c+',0)');
-      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-    }
-    /* cœur lumineux du couloir */
-    var core=ctx.createRadialGradient(cx,cy,0,cx,cy,R*(.16+progress*.22));
-    core.addColorStop(0,'rgba(255,240,215,'+(.18+progress*.22)+')');
-    core.addColorStop(1,'rgba(255,240,215,0)');
-    ctx.fillStyle=core;ctx.fillRect(0,0,W,H);
-  }
-  function loop(t){draw(t);if(!reduce)requestAnimationFrame(loop)}
-  addEventListener('resize',function(){resize();if(reduce)draw(0)});
-  resize();
-  if(reduce){draw(6000)}else{requestAnimationFrame(loop)}
-
-  /* ---- Mode plat si mouvement réduit ---- */
-  if(reduce){return}
-  root.classList.add('is-3d');
-
-  var G=700, layers=[].slice.call(document.querySelectorAll('.layer'));
-  var world=document.getElementById('world'),track=document.getElementById('track');
-  var stage=document.getElementById('stage');
-  var hint=document.getElementById('hint'),count=document.getElementById('count');
-  var STEPS=3;
-  function clamp(v,a,b){return v<a?a:v>b?b:v}
-  function ramp(v,a,b){return clamp((v-a)/(b-a),0,1)}
-
-  function update(){
-    var max=track.offsetHeight-innerHeight;
-    var raw=max>0?scrollY/max:0;
-    progress=clamp(raw*1.12,0,1);
-    var cam=progress*STEPS*G;
-    world.style.transform='translateZ('+cam+'px)';
-    var focus=0;
-    layers.forEach(function(l,idx){
-      var i=+getComputedStyle(l).getPropertyValue('--i');
-      var z=cam-i*G;                       /* profondeur relative à la caméra */
-      var f=z>0.5*G?1-ramp(z,0.5*G,0.95*G):clamp(1-(-z)/(8*G),.14,1);
-      var t=ramp(z,-.6*G,-.2*G)*(1-ramp(z,.2*G,.5*G));
-      l.style.setProperty('--f',f.toFixed(3));
-      l.style.setProperty('--t',t.toFixed(3));
-      l.style.pointerEvents=t>.6?'auto':'none';
-      if(l.dataset.i!==undefined&&t>.5)focus=+l.dataset.i;
-    });
-    hint.style.opacity=progress>.04?0:1;
-    count.textContent='0'+(focus+1)+' / 04';
-  }
-  var ticking=false;
-  addEventListener('scroll',function(){
-    if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;update()})}
-  },{passive:true});
-  addEventListener('resize',update);
-
-  /* point de fuite qui suit le curseur */
-  addEventListener('pointermove',function(e){
-    px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5;
-    stage.style.perspectiveOrigin=(50+px*10)+'% '+(46+py*8)+'%';
-  },{passive:true});
-  update();
-})();
-</script>
+<footer class="ftr">
+  <div class="ftr-top">
+    <div>
+      <div class="wordmark">FNAN</div>
+      <div class="ftr-name">National Festival of Digital Art</div>
+      <div class="ftr-date mono">19–22 November 2026 · Algiers</div>
+    </div>
+    <span class="logo-ph mono">Logo M. Culture</span>
+  </div>
+  <div class="ftr-cols">
+    <div><h4 class="mono">Explore</h4><ul><li><a href="about.html">About the Festival</a></li><li><a href="programme.html">Programme</a></li><li><a href="artists.html">Artists</a></li><li><a href="speakers.html">Speakers</a></li><li><a href="visit.html">Visit the Festival</a></li></ul></div>
+    <div><h4 class="mono">Follow us</h4><ul>
+      <li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">Contact</a></li></ul></div>
+  </div>
+  <div class="ftr-bot mono">
+    <span><a href="#">Privacy Policy</a> · <a href="#">Legal Notice</a></span>
+    <span>© FNAN 2026</span>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
 </body>
 </html>
