@@ -1,12 +1,12 @@
 # FNAN — National Cultural Festival of Plastic and Visual Arts (Digital Edition)
 
-Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Experts, Visit, Press & Media. Anglais uniquement.
+Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Experts, Visit, Press & Media. Deux versions : anglais (racine) et arabe (`/ar/`, droite-à-gauche, Reem Kufi), reliées par le sélecteur AR | EN du header.
 
 ## Modifier le contenu
 Le contenu et les gabarits sont dans `build.py` ; ne pas éditer les `.html` générés.
 
 ```bash
-python3 build.py        # régénère les 7 pages .html
+python3 build.py        # régénère les 14 pages .html (7 en anglais, 7 dans ar/)
 python3 -m http.server  # aperçu sur http://localhost:8000
 ```
 
@@ -26,3 +26,6 @@ Déploiement : Vercel (`vercel.json`, URLs propres), à chaque push.
 
 ## Page Press & Media
 Documents dans `assets/press/` (communiqué et dossier de presse en arabe, affiche officielle en JPG, vignettes). Pour les mettre à jour, remplacer les fichiers en gardant les mêmes noms.
+
+## Version arabe
+Textes issus du copywriting « Architecture du site v3 » (dans `build.py`, second argument de `T("anglais", "arabe")`). Les libellés d'interface sans source (mentions légales, aperçus de profils, « قريباً », etc.) sont à faire relire avant production, comme le demande la charte. Le KV du hero est retourné en arabe (`assets/kv-rtl.webp`, la vidéo est retournée en CSS).

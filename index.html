@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,11 @@
 <meta name="description" content="FNAN, National Cultural Festival of Plastic and Visual Arts, Digital Edition. 19–22 November 2026, Dar Abd-el-Tif and the National Museum of Fine Arts, Algiers.">
 <meta name="theme-color" content="#050403">
 <link rel="icon" type="image/webp" href="assets/logo-mark-small.webp">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="ar" href="ar/index.html">
 <meta property="og:title" content="FNAN — National Cultural Festival of Plastic and Visual Arts · 19–22 November 2026, Algiers">
 <meta property="og:description" content="FNAN, National Cultural Festival of Plastic and Visual Arts, Digital Edition. 19–22 November 2026, Dar Abd-el-Tif and the National Museum of Fine Arts, Algiers.">
+<meta property="og:locale" content="en_GB">
 <meta property="og:image" content="assets/kv.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +20,7 @@
 </head>
 <body class="">
 <header class="hdr" id="hdr">
-  <a class="brand" href="index.html" aria-label="FNAN — home">
+  <a class="brand" href="index.html" aria-label="FNAN">
     <img src="assets/logo-mark-small.webp" alt="" width="54" height="46">
     <span>FNAN</span>
   </a>
@@ -26,6 +29,9 @@
     <a class="cta mono" href="visit.html">Visit the Festival</a>
     <a href="press.html">Press &amp; Media</a>
   </nav>
+  <div class="lang mono" role="group" aria-label="Language">
+    <a href="ar/index.html" hreflang="ar" lang="ar">AR</a><span aria-hidden="true">|</span><a href="index.html" hreflang="en" lang="en" aria-current="true">EN</a>
+  </div>
   <img class="hdr-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="36" height="44">
   <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
 </header>
@@ -34,7 +40,7 @@
   <div class="kv" aria-hidden="true">
     <div class="kv-box">
       <img class="kv-img" src="assets/kv.webp" alt="" width="1333" height="2000" fetchpriority="high">
-      <!-- Vidéo du KV : déposer assets/kv.mp4 (même cadrage vertical 2:3) et elle remplace l'image -->
+      <!-- Vidéo du KV : déposer assets/kv.mp4 (même cadrage vertical 2:3) et elle remplace l'image (retournée automatiquement en arabe) -->
       <video class="kv-video" id="kv-video" muted loop playsinline autoplay preload="auto" poster="assets/kv.webp">
         <source src="assets/kv.mp4" type="video/mp4">
       </video>
@@ -60,18 +66,16 @@
 
 <section class="gates" aria-labelledby="gates-title">
   <h2 id="gates-title" class="rv">Walk through the arches.</h2>
-  <a class="gate rv" href="about.html"><span class="n mono">01</span><span><span class="t">About the Festival</span><p class="d">A space where art meets new expressions.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="programme.html"><span class="n mono">02</span><span><span class="t">The Programme</span><p class="d">Four ways to explore, create and connect.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="artists.html"><span class="n mono">03</span><span><span class="t">The Artists</span><p class="d">The artists behind new imaginaries.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="experts.html"><span class="n mono">04</span><span><span class="t">The Experts</span><p class="d">The voices behind the ideas.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="visit.html"><span class="n mono">05</span><span><span class="t">Visit the Festival</span><p class="d">Experience the festival. Discover new perspectives.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="press.html"><span class="n mono">06</span><span><span class="t">Press &amp; Media</span><p class="d">Everything you need to cover the festival.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a>
+  <a class="gate rv" href="about.html"><span class="n mono">01</span><span><span class="t">About the Festival</span><p class="d">A space where art meets new expressions.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="programme.html"><span class="n mono">02</span><span><span class="t">The Programme</span><p class="d">Four ways to explore, create and connect.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="artists.html"><span class="n mono">03</span><span><span class="t">The Artists</span><p class="d">The artists behind new imaginaries.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="experts.html"><span class="n mono">04</span><span><span class="t">The Experts</span><p class="d">The voices behind the ideas.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="visit.html"><span class="n mono">05</span><span><span class="t">Visit the Festival</span><p class="d">Experience the festival. Discover new perspectives.</p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a><a class="gate rv" href="press.html"><span class="n mono">06</span><span><span class="t">Press &amp; Media</span><p class="d"></p></span><span class="go"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg></span></a>
 </section>
 </main>
 <footer class="ftr">
   <div class="ftr-top">
-    <div>
-      <img class="ftr-mark" src="assets/logo-mark.webp" alt="FNAN" width="110" height="92">
-      <div class="ftr-name">National Cultural Festival of Plastic and Visual Arts — Digital Edition</div>
-      <div class="ftr-date mono">19–22 November 2026 · Algiers</div>
-    </div>
+    <img class="ftr-mark" src="assets/logo-mark.webp" alt="FNAN" width="110" height="92">
     <img class="logo-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="69" height="84">
   </div>
+  <div class="ftr-name">National Cultural Festival of Plastic and Visual Arts — Digital Edition</div>
+  <div class="ftr-date mono">19–22 November 2026 · Algiers</div>
   <div class="ftr-cols">
     <div><h4 class="mono">Explore</h4><ul><li><a href="about.html">About the Festival</a></li><li><a href="programme.html">Programme</a></li><li><a href="artists.html">Artists</a></li><li><a href="experts.html">Experts</a></li><li><a href="press.html">Press &amp; Media</a></li><li><a href="visit.html">Visit the Festival</a></li></ul></div>
     <div><h4 class="mono">Follow us</h4><ul>
@@ -79,7 +83,7 @@
   </div>
   <div class="ftr-bot mono">
     <span><a href="#">Privacy Policy</a> · <a href="#">Legal Notice</a></span>
-    <span>© FNAN 2026</span>
+    <span dir="ltr">© FNAN 2026</span>
   </div>
 </footer>
 <script src="assets/site.js"></script>
