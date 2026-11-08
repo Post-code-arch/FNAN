@@ -22,24 +22,26 @@ PAGES = [
     ("about", "About the Festival", "About the Festival"),
     ("programme", "Programme", "The Programme"),
     ("artists", "Artists", "The Artists"),
-    ("speakers", "Speakers", "The Speakers"),
+    ("experts", "Experts", "The Experts"),
     ("visit", "Visit the Festival", "Visit the Festival"),
+    ("press", "Press & Media", "Press & Media"),
 ]
 TAGLINES = {
     "about": ("A space where art meets new expressions."),
     "programme": ("Four ways to explore, create and connect."),
     "artists": ("The artists behind new imaginaries."),
-    "speakers": ("The voices behind the ideas."),
+    "experts": ("The voices behind the ideas."),
     "visit": ("Experience the festival. Discover new perspectives."),
+    "press": ("Everything you need to cover the festival."),  # provisoire : texte non fourni
 }
 ARROW = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg>'
 
 
-def arch_paths(n=5, active=0, w=120, h=150):
+def arch_paths(n=6, active=0, w=120, h=150):
     """Arches emboîtées (SVG). `active` = numéro (1..n) de la couche mise en lumière."""
     out = []
     for i in range(n):
-        inset = i * 13
+        inset = i * 48 / (n - 1)
         left, right, top = 8 + inset, w - 8 - inset, 6 + inset * 1.25
         r = (right - left) / 2
         cls = f"a{i + 1}" + (" on" if active == i + 1 else "")
@@ -83,14 +85,18 @@ def header(current=""):
   <nav class="nav" id="nav" aria-label="Main">
     {links}
     <a class="cta mono" href="visit.html"{cur if current == "visit" else ""}>{T("Visit the Festival")}</a>
+    <a href="press.html"{cur if current == "press" else ""}>{T("Press & Media")}</a>
   </nav>
+  <img class="hdr-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="36" height="44">
   <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
 </header>
 """
 
 
 def footer():
-    explore = "".join(f'<li><a href="{f}.html">{T(en)}</a></li>' for f, en, _ in PAGES)
+    order = ["about", "programme", "artists", "experts", "press", "visit"]
+    names = {f: en for f, en, _ in PAGES}
+    explore = "".join(f'<li><a href="{f}.html">{T(names[f])}</a></li>' for f in order)
     return f"""<footer class="ftr">
   <div class="ftr-top">
     <div>
@@ -103,7 +109,7 @@ def footer():
   <div class="ftr-cols">
     <div><h4 class="mono">{T("Explore")}</h4><ul>{explore}</ul></div>
     <div><h4 class="mono">{T("Follow us")}</h4><ul>
-      <li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">{T("Contact")}</a></li></ul></div>
+      <li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
   </div>
   <div class="ftr-bot mono">
     <span><a href="#">{T("Privacy Policy")}</a> · <a href="#">{T("Legal Notice")}</a></span>
@@ -132,10 +138,10 @@ def page_hero(idx):
     f, en, ten = PAGES[idx]
     tl = TAGLINES[f]
     return f"""<section class="page-hero">
-  <p class="num">0{idx + 1} / 05</p>
+  <p class="num">0{idx + 1} / 0{len(PAGES)}</p>
   <h1>{T(ten)}</h1>
   <p class="lead">{T(tl)}</p>
-  <svg class="page-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(5, idx + 1)}</svg>
+  <svg class="page-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(6, idx + 1)}</svg>
 </section>
 """
 
@@ -158,7 +164,7 @@ def index():
     )
     return (
         head(f"FNAN — {SITE_EN} · 19–22 November 2026, Algiers",
-             "FNAN, National Cultural Festival of Fine and Visual Arts, 4th Digital Edition. 19–22 November 2026, Villa Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
+             "FNAN, National Cultural Festival of Fine and Visual Arts, 4th Digital Edition. 19–22 November 2026, Dar Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
         + header()
         + f"""<main>
 <section class="hero" id="hero" aria-labelledby="hero-title">
@@ -176,15 +182,14 @@ def index():
   </div>
 
   <div class="hero-copy">
-    <div class="logos mono"><img class="logo-min" src="assets/logo-culture.webp" alt="Ministry of Culture and Arts of Algeria" width="52" height="64"></div>
     <p class="edition mono">{T(EDITION_EN)}</p>
     <h1 id="hero-title">{T(SITE_EN)}</h1>
     <p class="when">{T(DATES_EN)}</p>
-    <p class="where mono">{T("Villa Abd-el-Tif")}<br>{T("National Museum of Fine Arts, Algiers")}</p>
+    <p class="where mono">{T("Dar Abd-el-Tif")}<br>{T("National Museum of Fine Arts, Algiers")}</p>
   </div>
 
   <nav class="layers" id="layers" aria-label="{escape("Navigate through the arch layers")}">
-    <svg class="layers-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(5)}</svg>
+    <svg class="layers-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(6)}</svg>
     <ol>{layer_links}</ol>
   </nav>
   <div class="cue mono" aria-hidden="true">{T("Scroll")}</div>
@@ -317,16 +322,16 @@ def artists():
     )
 
 
-def speakers():
+def experts():
     topics = [("Digital Arts in Algeria"), ("Artistic Creation with Artificial Intelligence"),
               ("Algerian Heritage and Imaginaries"), ("Production and Distribution of Digital Artworks")]
     chips = "".join(f'<span class="chip">{T(e)}</span>' for e in topics)
-    fields = [("Speaker's name"), ("Portrait"), ("Professional title"), ("Biography"),
+    fields = [("Expert's name"), ("Portrait"), ("Professional title"), ("Biography"),
               ("Area of expertise"), ("Associated conference, panel or workshop")]
     fchips = "".join(f'<span class="chip">{T(e)}</span>' for e in fields)
     return (
-        head("The Speakers — FNAN", "Meet the artists, experts and cultural professionals contributing to the festival's programme.", "inner")
-        + header("speakers") + "<main>" + page_hero(3)
+        head("The Experts — FNAN", "Meet the artists, experts and cultural professionals contributing to the festival's programme.", "inner")
+        + header("experts") + "<main>" + page_hero(3)
         + f"""<div class="wrap">
   <div class="cols prose rv">
     <p>{T("Meet the artists, experts and cultural professionals contributing to the festival's programme through conferences, panel discussions and practical workshops.")}</p>
@@ -337,11 +342,11 @@ def speakers():
     <div class="chips rv">{chips}</div>
   </section>
   <section>
-    <h2 class="sec-title rv">{T("Meet the Speakers")}</h2>
+    <h2 class="sec-title rv">{T("Meet the Experts")}</h2>
     <p class="label mono rv">{T("Each profile will feature:")}</p>
     <div class="chips rv">{fchips}</div>
   </section>
-  {profiles(6, "Speaker", [("Title and expertise to come.")])}
+  {profiles(6, "Expert", [("Title and expertise to come.")])}
 </div>
 </main>"""
         + pager(3) + footer()
@@ -350,7 +355,7 @@ def speakers():
 
 def visit():
     return (
-        head("Visit the Festival — FNAN", "19–22 November 2026 at Villa Abd-el-Tif and the National Museum of Fine Arts of Algiers.", "inner")
+        head("Visit the Festival — FNAN", "19–22 November 2026 at Dar Abd-el-Tif and the National Museum of Fine Arts of Algiers.", "inner")
         + header("visit") + "<main>" + page_hero(4)
         + f"""<div class="wrap">
   <div class="cols prose rv">
@@ -362,7 +367,7 @@ def visit():
     <div class="info">
       <article class="card rv"><span class="n mono">{T("Dates")}</span><p class="big">{T("19 – 22 November 2026")}</p></article>
       <article class="card rv"><span class="n mono">{T("Locations")}</span>
-        <p class="big">{T("Villa Abd-el-Tif, Algiers.")}</p>
+        <p class="big">{T("Dar Abd-el-Tif, Algiers.")}</p>
         <p class="big">{T("National Museum of Fine Arts of Algiers.")}</p></article>
     </div>
   </section>
@@ -376,7 +381,33 @@ def visit():
     )
 
 
+def press():
+    items = [
+        ("Press kit", "The official presentation of the festival."),
+        ("Press releases", "News and announcements."),
+        ("Visuals & logos", "Official key visual, logos and images for editorial use."),
+        ("Press contact", "Contact details for accreditation and interviews."),
+    ]
+    cards = "".join(
+        f'<article class="card rv"><span class="n mono">0{i + 1}</span><h3>{T(t)}</h3><p>{T(d)}</p>'
+        f'<span class="soon mono">{T("Coming soon")}</span></article>'
+        for i, (t, d) in enumerate(items)
+    )
+    return (
+        head("Press & Media — FNAN", "Press resources for the National Cultural Festival of Fine and Visual Arts: press kit, visuals and contacts.", "inner")
+        + header("press") + "<main>" + page_hero(5)
+        + f"""<div class="wrap">
+  <section>
+    <h2 class="sec-title rv">{T("Press resources")}</h2>
+    <div class="cards">{cards}</div>
+  </section>
+</div>
+</main>"""
+        + pager(5) + footer()
+    )
+
+
 if __name__ == "__main__":
-    for name, fn in [("index", index), ("about", about), ("programme", programme), ("artists", artists), ("speakers", speakers), ("visit", visit)]:
+    for name, fn in [("index", index), ("about", about), ("programme", programme), ("artists", artists), ("experts", experts), ("visit", visit), ("press", press)]:
         (ROOT / f"{name}.html").write_text(fn(), encoding="utf-8")
         print("écrit", f"{name}.html")

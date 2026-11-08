@@ -32,6 +32,7 @@ a{color:inherit}
 .brand img{height:46px;width:auto;transition:transform .6s var(--spring)}
 .brand:hover img{transform:translateY(-3px)}
 .brand span{font-family:'Geist Mono',monospace;font-size:.78rem;font-weight:500;letter-spacing:.26em}
+.hdr-min{height:44px;width:auto;flex:none}
 .nav{display:flex;align-items:center;gap:clamp(18px,2.6vw,40px);margin-inline:auto}
 .nav a{position:relative;text-decoration:none;font-size:.95rem;padding:6px 0;color:var(--soft);transition:color .3s}
 .nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
@@ -48,8 +49,9 @@ a{color:inherit}
 .burger span:first-child{top:16px}.burger span:last-child{top:23px}
 .burger[aria-expanded=true] span:first-child{top:20px;transform:rotate(45deg)}
 .burger[aria-expanded=true] span:last-child{top:20px;transform:rotate(-45deg)}
-@media (max-width:900px){
-  .burger{display:block;margin-inline-start:auto}
+@media (max-width:1080px){
+  .burger{display:block;margin-inline-start:0}
+  .hdr-min{margin-inline-start:auto}
   .nav{
     position:fixed;inset:0;z-index:-1;flex-direction:column;justify-content:center;gap:26px;margin:0;
     background:rgba(4,7,6,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
@@ -121,7 +123,7 @@ a{color:inherit}
 .layers>*{animation:rise 1.4s var(--ease) 2.1s both}
 .layers-arch{width:74px;height:92px;flex:none;overflow:visible}
 .layers-arch path{fill:none;stroke:rgba(255,255,255,.28);stroke-width:1.2;transition:stroke .4s,filter .4s}
-.layers[data-active="1"] .a1,.layers[data-active="2"] .a2,.layers[data-active="3"] .a3,.layers[data-active="4"] .a4,.layers[data-active="5"] .a5{
+.layers[data-active="1"] .a1,.layers[data-active="2"] .a2,.layers[data-active="3"] .a3,.layers[data-active="4"] .a4,.layers[data-active="5"] .a5,.layers[data-active="6"] .a6{
   stroke:var(--warm);filter:drop-shadow(0 0 6px rgba(255,241,220,.8))}
 .layers ol{list-style:none;padding:0;display:grid;gap:2px}
 .layers a{display:flex;gap:14px;align-items:baseline;text-decoration:none;padding:5px 0;color:var(--soft);transition:color .3s,transform .5s var(--spring)}

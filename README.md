@@ -1,12 +1,12 @@
 # FNAN — National Cultural Festival of Fine and Visual Arts (4th Digital Edition)
 
-Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Speakers, Visit. Anglais uniquement.
+Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Experts, Visit, Press & Media. Anglais uniquement.
 
 ## Modifier le contenu
 Le contenu et les gabarits sont dans `build.py` ; ne pas éditer les `.html` générés.
 
 ```bash
-python3 build.py        # régénère index.html, about.html, programme.html, artists.html, speakers.html, visit.html
+python3 build.py        # régénère les 7 pages .html
 python3 -m http.server  # aperçu sur http://localhost:8000
 ```
 
