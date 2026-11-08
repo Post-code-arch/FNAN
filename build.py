@@ -120,10 +120,10 @@ def header(slug, current=""):
     <a class="cta mono" href="visit.html"{cur if current == "visit" else ""}>{S(visit['nav'])}</a>
     <a href="press.html"{cur if current == "press" else ""}>{S(press['nav'])}</a>
   </nav>
+  <img class="hdr-min" src="{A('assets/logo-culture.webp')}" alt="{T('Ministry of Culture and Arts of Algeria', 'وزارة الثقافة والفنون - الجزائر')}" width="36" height="44">
   <div class="lang mono" role="group" aria-label="Language">
     <a href="{link_for(slug, 'ar')}" hreflang="ar" lang="ar"{ar_cur}>AR</a><span aria-hidden="true">|</span><a href="{link_for(slug, 'en')}" hreflang="en" lang="en"{en_cur}>EN</a>
   </div>
-  <img class="hdr-min" src="{A('assets/logo-culture.webp')}" alt="{T('Ministry of Culture and Arts of Algeria', 'وزارة الثقافة والفنون - الجزائر')}" width="36" height="44">
   <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
 </header>
 """
