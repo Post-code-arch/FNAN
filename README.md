@@ -1,4 +1,4 @@
-# FNAN — National Cultural Festival of Fine and Visual Arts (4th Digital Edition)
+# FNAN — National Cultural Festival of Plastic and Visual Arts (Digital Edition)
 
 Site statique du festival (19–22 novembre 2026, Alger). Pages : accueil (hero KV), About, Programme, Artists, Experts, Visit, Press & Media. Anglais uniquement.
 
@@ -23,3 +23,6 @@ Appliquée d'après `VISUAL_IDENTITY_FAN` : fond Noir #050403, texte Chaux #EFEB
 - Profils artistes et intervenants (cartes « Profile coming soon »).
 
 Déploiement : Vercel (`vercel.json`, URLs propres), à chaque push.
+
+## Page Press & Media
+Documents dans `assets/press/` (communiqué et dossier de presse en arabe, affiche officielle en JPG, vignettes). Pour les mettre à jour, remplacer les fichiers en gardant les mêmes noms.

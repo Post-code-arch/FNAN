@@ -8,8 +8,8 @@ from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-SITE_EN = "National Cultural Festival of Fine and Visual Arts"
-EDITION_EN = "4th Digital Edition"
+SITE_EN = "National Cultural Festival of Plastic and Visual Arts"
+EDITION_EN = "Digital Edition"
 DATES_EN = "19 — 22 November 2026"
 
 
@@ -34,6 +34,7 @@ TAGLINES = {
     "visit": ("Experience the festival. Discover new perspectives."),
     "press": ("Everything you need to cover the festival."),  # provisoire : texte non fourni
 }
+ARROW_DL = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 2v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>'
 ARROW = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg>'
 
 
@@ -109,7 +110,7 @@ def footer():
   <div class="ftr-cols">
     <div><h4 class="mono">{T("Explore")}</h4><ul>{explore}</ul></div>
     <div><h4 class="mono">{T("Follow us")}</h4><ul>
-      <li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
+      <li><a href="https://www.instagram.com/algeria.visual.arts.festival" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/share/1N61yh9TeK/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
   </div>
   <div class="ftr-bot mono">
     <span><a href="#">{T("Privacy Policy")}</a> · <a href="#">{T("Legal Notice")}</a></span>
@@ -164,7 +165,7 @@ def index():
     )
     return (
         head(f"FNAN — {SITE_EN} · 19–22 November 2026, Algiers",
-             "FNAN, National Cultural Festival of Fine and Visual Arts, 4th Digital Edition. 19–22 November 2026, Dar Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
+             "FNAN, National Cultural Festival of Plastic and Visual Arts, Digital Edition. 19–22 November 2026, Dar Abd-el-Tif and the National Museum of Fine Arts, Algiers.")
         + header()
         + f"""<main>
 <section class="hero" id="hero" aria-labelledby="hero-title">
@@ -382,25 +383,46 @@ def visit():
 
 
 def press():
-    items = [
-        ("Press kit", "The official presentation of the festival."),
-        ("Press releases", "News and announcements."),
-        ("Visuals & logos", "Official key visual, logos and images for editorial use."),
-        ("Press contact", "Contact details for accreditation and interviews."),
-    ]
-    cards = "".join(
-        f'<article class="card rv"><span class="n mono">0{i + 1}</span><h3>{T(t)}</h3><p>{T(d)}</p>'
-        f'<span class="soon mono">{T("Coming soon")}</span></article>'
-        for i, (t, d) in enumerate(items)
+    ig = "https://www.instagram.com/algeria.visual.arts.festival"
+    fb = "https://www.facebook.com/share/1N61yh9TeK/"
+    mail = "festivalartsvisuelsalgerie@gmail.com"
+
+    def doc(n, title, desc, meta, thumb, href, fname, cta):
+        return (
+            f'<article class="doc rv"><a class="doc-thumb" href="{href}" target="_blank" rel="noopener" aria-label="{escape(title)}">'
+            f'<img src="{thumb}" alt="" loading="lazy"></a>'
+            f'<div class="doc-body"><span class="n mono">{n}</span><h3>{T(title)}</h3><p>{T(desc)}</p>'
+            f'<p class="meta mono">{T(meta)}</p>'
+            f'<a class="btn mono" href="{href}" download="{fname}">{T(cta)} {ARROW_DL}</a></div></article>'
+        )
+
+    docs = (
+        doc("01", "Press kit", "The official presentation of the festival: vision, theme, programme, venues and key facts.",
+            "PDF · Arabic · 7 pages", "assets/press/thumb-dossier.webp", "assets/press/fnan-dossier-de-presse.pdf", "FNAN-press-kit.pdf", "Download the press kit")
+        + doc("02", "Press release", "The announcement of the first festival edition, 19–22 November 2026.",
+              "PDF · Arabic · 1 page", "assets/press/thumb-communique.webp", "assets/press/fnan-communique-de-presse.pdf", "FNAN-press-release.pdf", "Download the press release")
+        + doc("03", "Key visual", "The official poster of the festival, for editorial use.",
+              "JPG · 1443 × 2048 px", "assets/press/thumb-kv.webp", "assets/press/fnan-key-visual.jpg", "FNAN-key-visual.jpg", "Download the key visual")
     )
+    contact = f"""<article class="card contact rv">
+      <span class="n mono">04</span><h3>{T("Press contact")}</h3>
+      <p>{T("Communication & Media Unit. For media enquiries, interview requests and coverage coordination.")}</p>
+      <ul class="clist">
+        <li><span class="mono">{T("Email")}</span><a href="mailto:{mail}">{mail}</a></li>
+        <li><span class="mono">{T("Phone")}</span><a href="tel:+213553486929">0553 48 69 29</a></li>
+        <li><span class="mono">{T("Social")}</span><span><a href="{ig}" target="_blank" rel="noopener">Instagram</a> · <a href="{fb}" target="_blank" rel="noopener">Facebook</a></span></li>
+      </ul>
+    </article>"""
     return (
-        head("Press & Media — FNAN", "Press resources for the National Cultural Festival of Fine and Visual Arts: press kit, visuals and contacts.", "inner")
+        head("Press & Media — FNAN", "Press resources for the National Cultural Festival of Plastic and Visual Arts: press kit, press release, key visual and media contact.", "inner")
         + header("press") + "<main>" + page_hero(5)
         + f"""<div class="wrap">
   <section>
     <h2 class="sec-title rv">{T("Press resources")}</h2>
-    <div class="cards">{cards}</div>
+    <p class="note mono rv">{T("The press documents are provided in Arabic.")}</p>
+    <div class="docs">{docs}</div>
   </section>
+  <section>{contact}</section>
 </div>
 </main>"""
         + pager(5) + footer()
