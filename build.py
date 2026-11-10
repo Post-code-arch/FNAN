@@ -45,15 +45,17 @@ PAGES = [
          tag=("The voices behind the ideas.", "خبرات ورؤى تثري النقاش حول الفن والتكنولوجيا.")),
     dict(f="visit", nav=("Visit the Festival", "زيارة المهرجان"), title=("Visit the Festival", "زيارة المهرجان"),
          tag=("Experience the festival. Discover new perspectives.", "تجربة فنية وثقافية متكاملة.")),
-    dict(f="press", nav=("Press & Media", "الصحافة والإعلام"), title=("Press & Media", "الصحافة والإعلام"), tag=None),
 ]
+# Page « Press & Media » désactivée pour l'instant. Pour la remettre : l'ajouter à la fin de PAGES,
+# ré-ajouter son lien dans header() et footer(), et remettre ("press", press) dans PAGE_FUNCS.
+PRESS_PAGE = dict(f="press", nav=("Press & Media", "الصحافة والإعلام"), title=("Press & Media", "الصحافة والإعلام"), tag=None)
 PG = {p["f"]: p for p in PAGES}
 
 ARROW = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5"/></svg>'
 ARROW_DL = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 2v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>'
 
 
-def arch_paths(n=6, active=0, w=120, h=150):
+def arch_paths(n=5, active=0, w=120, h=150):
     """Arches emboîtées (SVG). `active` = numéro (1..n) de la couche mise en lumière."""
     out = []
     for i in range(n):
@@ -107,7 +109,7 @@ def header(slug, current=""):
         f'<a href="{p["f"]}.html"{cur if p["f"] == current else ""}>{S(p["nav"])}</a>'
         for p in PAGES[:4]
     )
-    press, visit = PG["press"], PG["visit"]
+    visit = PG["visit"]
     ar_cur = ' aria-current="true"' if L == "ar" else ""
     en_cur = ' aria-current="true"' if L == "en" else ""
     return f"""<header class="hdr" id="hdr">
@@ -118,7 +120,6 @@ def header(slug, current=""):
   <nav class="nav" id="nav" aria-label="{T('Main', 'التنقل الرئيسي')}">
     {links}
     <a class="cta mono" href="visit.html"{cur if current == "visit" else ""}>{S(visit['nav'])}</a>
-    <a href="press.html"{cur if current == "press" else ""}>{S(press['nav'])}</a>
   </nav>
   <img class="hdr-min" src="{A('assets/logo-culture.webp')}" alt="{T('Ministry of Culture and Arts of Algeria', 'وزارة الثقافة والفنون - الجزائر')}" width="36" height="44">
   <div class="lang mono" role="group" aria-label="Language">
@@ -130,8 +131,7 @@ def header(slug, current=""):
 
 
 def footer():
-    order = ["about", "programme", "artists", "experts", "press", "visit"] if L == "en" else \
-            ["about", "programme", "artists", "experts", "visit", "press"]
+    order = ["about", "programme", "artists", "experts", "visit"]
     if L == "ar":
         explore = "".join(f'<li><a href="{f}.html"><span class="n">0{i + 1}</span> — {S(PG[f]["nav"])}</a></li>'
                           for i, f in enumerate(order))
@@ -180,7 +180,7 @@ def page_hero(idx):
   <p class="num">0{idx + 1} / 0{len(PAGES)}</p>
   <h1>{S(p["title"])}</h1>
   {lead}
-  <svg class="page-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(6, idx + 1)}</svg>
+  <svg class="page-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(len(PAGES), idx + 1)}</svg>
 </section>
 """
 
@@ -231,7 +231,7 @@ def index():
   </div>
 
   <nav class="layers" id="layers" aria-label="{T("Navigate through the arch layers", "التنقل عبر طبقات القوس")}">
-    <svg class="layers-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(6)}</svg>
+    <svg class="layers-arch" viewBox="0 0 120 150" aria-hidden="true">{arch_paths(len(PAGES))}</svg>
     <ol>{layer_links}</ol>
   </nav>
   <div class="cue mono" aria-hidden="true">{T("Scroll", "مرّر")}</div>
@@ -504,7 +504,7 @@ def press():
 
 
 PAGE_FUNCS = [("index", index), ("about", about), ("programme", programme), ("artists", artists),
-              ("experts", experts), ("visit", visit), ("press", press)]
+              ("experts", experts), ("visit", visit)]
 
 if __name__ == "__main__":
     (ROOT / "ar").mkdir(exist_ok=True)
