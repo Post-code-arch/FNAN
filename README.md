@@ -29,3 +29,6 @@ Documents dans `assets/press/` (communiqué et dossier de presse en arabe, affic
 
 ## Version arabe
 Textes issus du copywriting « Architecture du site v3 » (dans `build.py`, second argument de `T("anglais", "arabe")`). Les libellés d'interface sans source (mentions légales, aperçus de profils, « قريباً », etc.) sont à faire relire avant production, comme le demande la charte. Le KV du hero est retourné en arabe (`assets/kv-rtl.webp`, la vidéo est retournée en CSS).
+
+
+Hébergement : Porkbun Static Hosting (GitHub Connect) — https://algeriavisualfest.com
